@@ -1,7 +1,9 @@
 # custom
+.DS_Store
 ft_env
 parameter.dat
-
+*.dat
+/srcs/houses.csv
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
