@@ -6,9 +6,12 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/28 12:28:15 by kimkwanho         #+#    #+#              #
-#    Updated: 2023/01/03 16:10:55 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/03 20:03:39 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
+FILE = "data/dataset_train.csv"
 
 all:
 	@make help
@@ -30,11 +33,11 @@ env:
 	@printf "\033[1m\033[32m     \033[0m\t \033[1m\033[4m"
 	@which python
 	@printf "\033[0m\n"
-	@printf "\033[1m\033[32m     \033[0m\t If it doesn't works well, please run [source ft_env/bin/activate].\n"
+	@printf "\033[1m\033[32m     \033[0m\t If it doesn't works well, please run [\033[1m\033[4m\033[33msource ft_env/bin/activate\033[0m].\n"
 
 describe:
 	@printf "\033[1m\033[34m[Read]\033[0m\t Running the describe.py code\n"
-	python3 "srcs/describe.py"
+	python3 "srcs/describe.py" $(FILE)
 
 train:
 	@printf "\033[1m\033[34m[Train]\033[0m\t Running the training.py code\n"
@@ -45,7 +48,7 @@ help:
 	@printf "\033[1m\033[33m      \033[0m\t \033[31m[make clean]\033[0m    remove pycache, env folder, and parameter.dat\n"
 	@printf "\033[1m\033[33m      \033[0m\t \033[32m[make setup]\033[0m    setup the virtual python environment\n"
 	@printf "\033[1m\033[33m      \033[0m\t \033[32m[make env]\033[0m      let the python run in the folder ft_env\n"
-	@printf "\033[1m\033[33m      \033[0m\t \033[34m[make describe]\033[0m Run describe.py\n"
+	@printf "\033[1m\033[33m      \033[0m\t \033[34m[make describe FILE=file_name.csv]\033[0m Run describe.py\n"
 	@printf "\033[1m\033[33m      \033[0m\t \n"
 	@printf "\033[1m\033[33m      \033[0m\t We recommend you to execute this project by this order.\n"
 	@printf "\033[1m\033[33m      \033[0m\t \033[1m\033[4m\033[31mmake clean\033[0m → \033[1m\033[4m\033[32mmake setup\033[0m → \033[1m\033[4m\033[32mmake env\033[0m → \033[1m\033[4m\033[34mmake read\033[0m → \033[1m\033[4m\033[34mmake train\033[0m → \033[1m\033[4m\033[34mmake read\033[0m\n"
