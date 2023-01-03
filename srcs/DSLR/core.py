@@ -6,17 +6,50 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 16:22:38 by kkim              #+#    #+#              #
-#    Updated: 2023/01/03 20:01:31 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/03 20:20:58 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# ------------------------------------------------------------------------------
+# import : DSLR
+from DSLR.math import ft_count, ft_mean, ft_std, ft_min, ft_max, ft_percentile
+from DSLR.colors import colors as c
+
+# ------------------------------------------------------------------------------
+# import : libraies
 import csv
 import numpy
 import matplotlib
 import matplotlib.pyplot as plt
-from DSLR.math import ft_count, ft_mean, ft_std, ft_min, ft_max, ft_percentile
-from DSLR.colors import colors as c
 
+# ------------------------------------------------------------------------------
+# util
+
+# ft_read_csv(filename)
+#   ~~~
+#   float만 입력받~~~
+def ft_read_csv(_file_name):
+    dataset = list()
+    with open(_file_name) as csv_file:
+        reader = csv.reader(csv_file)
+        try:
+            for line in reader:
+                row = list()
+                for value in line:
+                    try:
+                        value = float(value)
+                    except:
+                        if not value: #
+                            value = numpy.nan
+                    row.append(value)
+                dataset.append(row)
+        except csv.Error as exp:
+            print("error occured")
+    return numpy.array(dataset, dtype=object)
+
+# ------------------------------------------------------------------------------
+# describe(filename)
+#   ~~
 def ft_describe(_file_name):
     dataset = ft_read_csv(_file_name)
     index = dataset[0]
@@ -52,22 +85,42 @@ def ft_describe(_file_name):
             print(f'{"No numerical value to display":>60}                                     {c.BLUE}│')
     print(f"{c.BLUE}└─────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────┘{c.RESET}")
 
-# float만 입력받~~~
-def ft_read_csv(_file_name):
-    dataset = list()
-    with open(_file_name) as csv_file:
-        reader = csv.reader(csv_file)
-        try:
-            for line in reader:
-                row = list()
-                for value in line:
-                    try:
-                        value = float(value)
-                    except:
-                        if not value: #
-                            value = numpy.nan
-                    row.append(value)
-                dataset.append(row)
-        except csv.Error as exp:
-            print("error occured")
-    return numpy.array(dataset, dtype=object)
+
+# ------------------------------------------------------------------------------
+# histogram(filename)
+#   ~~
+def ft_histogram(_file_name):
+    # data reading
+    dataset = ft_read_csv(_file_name)
+    data    = dataset[1:, :]
+    data    = data[data[:, 1].argsort()]
+
+    # parameter setting
+    x       = numpy.array(data[:, 16], dtype=float)
+    legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
+    title   = dataset[0, 16]
+    x_label = "Marks"
+    y_label = "Number of student"
+
+    # drawing
+    h1 = x[:327]
+    h1 = h1[~numpy.isnan(h1)]
+    plt.hist(h1, color='red', alpha=0.5)
+
+    h2 = x[327:856]
+    h2 = h2[~numpy.isnan(h2)]
+    plt.hist(h2, color='yellow', alpha=0.5)
+
+    h3 = x[856:1299]
+    h3 = h3[~numpy.isnan(h3)]
+    plt.hist(h3, color='blue', alpha=0.5)
+
+    h4 = x[1299:]
+    h4 = h4[~numpy.isnan(h4)]
+    plt.hist(h4, color='green', alpha=0.5)
+
+    plt.legend(legend, loc='upper right', frameon=False)
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    plt.show()
