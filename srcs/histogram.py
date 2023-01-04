@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 20:09:10 by kkim              #+#    #+#              #
-#    Updated: 2023/01/03 20:18:51 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/04 14:25:09 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 # import : DSLR
 from DSLR.core import ft_histogram
 
-# import : libaries
+# ------------------------------------------------------------------------------
+# import : library
 import numpy
 import argparse
 

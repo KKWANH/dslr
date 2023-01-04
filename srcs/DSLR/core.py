@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 16:22:38 by kkim              #+#    #+#              #
-#    Updated: 2023/01/03 20:20:58 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/04 14:22:01 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ from DSLR.math import ft_count, ft_mean, ft_std, ft_min, ft_max, ft_percentile
 from DSLR.colors import colors as c
 
 # ------------------------------------------------------------------------------
-# import : libraies
+# import : library
 import csv
 import numpy
 import matplotlib

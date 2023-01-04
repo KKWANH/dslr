@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/28 12:28:15 by kimkwanho         #+#    #+#              #
-#    Updated: 2023/01/03 20:22:03 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/04 14:26:10 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,20 @@ env:
 	@printf "\033[1m\033[32m     \033[0m\t If it doesn't works well, please run [\033[1m\033[4m\033[33msource ft_env/bin/activate\033[0m].\n"
 
 describe:
-	@printf "\033[1m\033[34m[Read]\033[0m\t Running the describe.py code\n"
+	@printf "\033[1m\033[34m[Run]\033[0m\t Running the describe.py code\n"
 	@python3 "srcs/describe.py" $(FILE)
 
 histogram:
-	@printf "\033[1m\033[34m[Read]\033[0m\t Running the histogram.py code\n"
+	@printf "\033[1m\033[34m[Run]\033[0m\t Running the histogram.py code\n"
 	@python3 "srcs/histogram.py" $(FILE)
+
+predict:
+	@printf "\033[1m\033[34m[Run]\033[0m\t Running the predict.py code\n"
+	@python3 "srcs/predict.py" $(FILE)
+
+train:
+	@printf "\033[1m\033[34m[Run]\033[0m\t Running the train.py code\n"
+	@python3 "srcs/train.py" $(FILE)
 
 help:
 	@printf "\033[1m\033[33m[Help]\033[0m\t \033[4m\033[1mthere are 5 options.\033[0m\n"
