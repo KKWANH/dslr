@@ -102,9 +102,15 @@ def ft_describe(_file_name):
     dataset_rav = numpy.array([x for x in dataset if ft_check_house(x, 'Ravenclaw')])
     dataset_sly = numpy.array([x for x in dataset if ft_check_house(x, 'Slytherin')])
 
+    print("Total")
+    ft_describe_print(index, dataset)
+    print("Gryffindor")
     ft_describe_print(index, dataset_gry)
+    print("Hufflepuff")
     ft_describe_print(index, dataset_huf)
+    print("Ravenclaw")
     ft_describe_print(index, dataset_rav)
+    print("Slytherin")
     ft_describe_print(index, dataset_sly)
 
 
