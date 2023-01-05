@@ -9,6 +9,7 @@ pip install pandas
 pip install numpy
 pip install matplotlib
 pip install scikit-learn
+pip install seaborn
 
 # deactivate  #deactivate env
 which python

@@ -13,19 +13,18 @@ warnings.filterwarnings('ignore')
 
 from pathlib import Path
 
-from MiddleLayer import MiddleLayer
-from OutputLayer import OutputLayer
+from DSLR.layer import OutputLayer
 
 from logreg_train import addLabelColumn
 from logreg_train import preprocessing2
 from logreg_train import getInputData
 from logreg_train import getCorrectData
 
-# -- 순전파 --
-def forward_propagation(x):
-    #middle_layer_1.forward(x)
-    #middle_layer_2.forward(middle_layer_1.y)
-    output_layer.forward(x)
+# # -- 순전파 --
+# def forward_propagation(x):
+#     #middle_layer_1.forward(x)
+#     #middle_layer_2.forward(middle_layer_1.y)
+#     output_layer.forward(x)
 
 def get_wb(printMode = True):
   fname = 'wb.dat'
@@ -79,9 +78,21 @@ def evaulate(mylabels, testFname, resultFname, printMode = True):
     print("It has to have 19 columns. check your data. stop the processing")
     return
 
+  df = addLabelColumn(df) #training only
+
   df4 = preprocessing2(df, printMode=False)
-  raw_data, n_data, input_data = getInputData(df4, printMode= False)
-  forward_propagation(input_data)
+  raw_data, n_data, input_data = getInputData(df4, printMode=False)
+  correct, correct_data = getCorrectData(raw_data, n_data, printMode=False)
+
+  output_layer.forward(input_data)
+
+  error = get_error(correct_data, n_data)
+  print(np.argmax(output_layer.y, axis=1) == np.argmax(correct_data, axis=1))
+  print(np.argmax(output_layer.y, axis=1))
+  print(np.argmax(correct_data, axis=1))
+
+  count = np.sum(np.argmax(output_layer.y, axis=1) == np.argmax(correct_data, axis=1))
+  print("Error:" + str(error), "Accuracy:", str(count/n_data*100) + "%")
 
   #print(mylabels)
   if printMode:
@@ -174,4 +185,3 @@ if __name__ == '__main__':
 
   else:
     print("check if your file exists")
-

@@ -13,8 +13,7 @@ warnings.filterwarnings('ignore')
 
 from pathlib import Path
 
-from MiddleLayer import MiddleLayer
-from OutputLayer import OutputLayer
+from DSLR.layer import OutputLayer
 
 from logreg_train import addLabelColumn
 from logreg_train import preprocessing2
@@ -22,10 +21,10 @@ from logreg_train import getInputData
 from logreg_train import getCorrectData
 
 # -- 순전파 --
-def forward_propagation(x):
-    #middle_layer_1.forward(x)
-    #middle_layer_2.forward(middle_layer_1.y)
-    output_layer.forward(x)
+# def forward_propagation(x):
+#     #middle_layer_1.forward(x)
+#     #middle_layer_2.forward(middle_layer_1.y)
+#     output_layer.forward(x)
 
 def get_wb(printMode = True):
   fname = 'wb.dat'
@@ -61,11 +60,6 @@ def get_wb(printMode = True):
 
   return ow, ob
 
-# -- 오차 계산 --
-# https://towardsdatascience.com/understanding-sigmoid-logistic-softmax-functions-and-cross-entropy-loss-log-loss-dbbbe0a17efb#3f76
-def get_error(t, batch_size):
-    return -np.sum(t * np.log(output_layer.y + 1e-7)) / batch_size  # cross entropy error
-
 def evaulate(mylabels, testFname, resultFname, printMode = True):
 
   print("############################")
@@ -79,21 +73,9 @@ def evaulate(mylabels, testFname, resultFname, printMode = True):
     print("It has to have 19 columns. check your data. stop the processing")
     return
 
-  df = addLabelColumn(df) #training only
-
   df4 = preprocessing2(df, printMode=False)
-  raw_data, n_data, input_data = getInputData(df4, printMode=False)
-  correct, correct_data = getCorrectData(raw_data, n_data, printMode=False)
-
-  forward_propagation(input_data)
-
-  error = get_error(correct_data, n_data)
-  print(np.argmax(output_layer.y, axis=1) == np.argmax(correct_data, axis=1))
-  print(np.argmax(output_layer.y, axis=1))
-  print(np.argmax(correct_data, axis=1))
-
-  count = np.sum(np.argmax(output_layer.y, axis=1) == np.argmax(correct_data, axis=1))
-  print("Error:" + str(error), "Accuracy:", str(count/n_data*100) + "%")
+  raw_data, n_data, input_data = getInputData(df4, printMode= False)
+  output_layer.forward(input_data)
 
   #print(mylabels)
   if printMode:
