@@ -162,9 +162,10 @@ def ft_scatter_plot(_file_name, _index_x, _index_y):
     x       = numpy.array(data[:, _index_x], dtype=float)
     y       = numpy.array(data[:, _index_y], dtype=float)
     legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
-    title   = dataset[0, _index_x]
-    x_label = "Marks"
-    y_label = "Number of student"
+    x_label = dataset[0, _index_x]
+    y_label = dataset[0, _index_y]
+    title   = "x=" + x_label + ', y=' + y_label
+
     alpha   = 0.5
     size    = 8
     # flg, axes = plt.subplot(2)
@@ -180,17 +181,97 @@ def ft_scatter_plot(_file_name, _index_x, _index_y):
     plt.title(title)
     plt.xlabel(x_label)
     plt.ylabel(y_label)
-    
+
     plt.show()
 
 # ------------------------------------------------------------------------------
 # pair plot(filename)
 #   ~~
 
-def ft_pair_plot(_file_name):
-    # dataset = ft_read_csv(_file_name)
-    # data    = dataset[1:, :]
-    # data    = data[data[:, 1].argsort()]
-    
-    # size    = data
-    print("hello world")
+
+
+def ft_ax_histogram_plot(_ax, _dataset, _index):
+
+    # data reading
+    data    = _dataset[1:, :]
+    data    = data[data[:, 1].argsort()]
+
+    # parameter setting
+    x       = numpy.array(data[:, _index], dtype=float)
+    #legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
+    x_label = _dataset[0, _index]
+    y_label = "Number of student"
+    #title   = dataset[0, _index]
+
+    alpha   = 0.3
+
+    # drawing
+    _ax.hist(x[:327],    color='red', alpha=alpha)
+    _ax.hist(x[327:856], color='orange', alpha=alpha)
+    _ax.hist(x[856:1299],color='blue', alpha=alpha)
+    _ax.hist(x[1299:],   color='green', alpha=alpha)
+
+
+    #_ax.legend(legend, loc='lower right', frameon=False)
+    _ax.set_title("histgoram of " + x_label)
+    #_ax.set_xlabel(x_label)
+    #_ax.set_ylabel(y_label)
+
+def ft_ax_scatter_plot(_ax, _dataset, _index_x, _index_y):
+
+    # data reading
+    data    = _dataset[1:, :]
+    data    = data[data[:, 1].argsort()]
+
+    # parameter setting
+    x       = numpy.array(data[:, _index_x], dtype=float)
+    y       = numpy.array(data[:, _index_y], dtype=float)
+    #legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
+    x_label = _dataset[0, _index_x]
+    y_label = _dataset[0, _index_y]
+    title   = "x=" + x_label + ', y=' + y_label
+
+    alpha   = 0.5
+    size    = 8
+    # flg, axes = plt.subplot(2)
+    # axes[0, 0].plot()
+
+    # drawing
+    _ax.scatter(x[:327],    y[:327],    s=size, color='red', alpha=alpha)
+    _ax.scatter(x[327:856], y[327:856], s=size, color='orange', alpha=alpha)
+    _ax.scatter(x[856:1299],y[856:1299],s=size, color='blue', alpha=alpha)
+    _ax.scatter(x[1299:],   y[1299:],   s=size, color='green', alpha=alpha)
+
+    #_ax.legend(legend, loc='lower right', frameon=False)
+    _ax.set_title(title)
+    #_ax.set_xlabel(x_label)
+    #_ax.set_ylabel(y_label)
+
+
+
+def ft_pair_plot(_file_name, indices):
+
+    dataset = ft_read_csv(_file_name)
+    data    = dataset[1:, :]
+    data    = data[data[:, 1].argsort()]
+
+    # parameter setting
+    legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
+
+    # drawing
+    x, y = [len(indices), len(indices)]
+    _, axes = plt.subplots(x, y, figsize=(13/3*len(indices), 13/3*len(indices)))
+
+    for i in range(0,x):
+        idx_i = indices[i]
+        for j in range(0,y):
+            idx_j = indices[j]
+            ax=axes[i, j]
+            if i == j:
+              ft_ax_histogram_plot(ax, dataset, idx_i)
+            else:
+              ft_ax_scatter_plot(ax, dataset, idx_i, idx_j)
+
+
+    plt.legend(legend, loc='lower right', frameon=True)
+    plt.show()

@@ -26,3 +26,4 @@ if __name__ == '__main__':
     parser.add_argument("file_name", type=str)
     args = parser.parse_args()
     ft_scatter_plot(args.file_name, 16, 6)
+    ft_scatter_plot(args.file_name, 7, 8)
