@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 16:22:38 by kkim              #+#    #+#              #
-#    Updated: 2023/01/05 13:09:52 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/05 13:54:29 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ import csv
 import numpy
 import matplotlib
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 import pandas
 
@@ -134,7 +133,7 @@ def ft_histogram(_file_name, _index):
 
     h2 = x[327:856]
     h2 = h2[~numpy.isnan(h2)]
-    plt.hist(h2, color='yellow', alpha=alpha)
+    plt.hist(h2, color='orange', alpha=alpha)
 
     h3 = x[856:1299]
     h3 = h3[~numpy.isnan(h3)]
@@ -149,3 +148,49 @@ def ft_histogram(_file_name, _index):
     plt.xlabel(x_label)
     plt.ylabel(y_label)
     plt.show()
+
+# ------------------------------------------------------------------------------
+# scatter plot(filename, index_x, index_y)
+#   ~~
+def ft_scatter_plot(_file_name, _index_x, _index_y):
+    # data reading
+    dataset = ft_read_csv(_file_name)
+    data    = dataset[1:, :]
+    data    = data[data[:, 1].argsort()]
+
+    # parameter setting
+    x       = numpy.array(data[:, _index_x], dtype=float)
+    y       = numpy.array(data[:, _index_y], dtype=float)
+    legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
+    title   = dataset[0, _index_x]
+    x_label = "Marks"
+    y_label = "Number of student"
+    alpha   = 0.5
+    size    = 8
+    # flg, axes = plt.subplot(2)
+    # axes[0, 0].plot()
+
+    # drawing
+    plt.scatter(x[:327],    y[:327],    s=size, color='red', alpha=alpha)
+    plt.scatter(x[327:856], y[327:856], s=size, color='orange', alpha=alpha)
+    plt.scatter(x[856:1299],y[856:1299],s=size, color='blue', alpha=alpha)
+    plt.scatter(x[1299:],   y[1299:],   s=size, color='green', alpha=alpha)
+
+    plt.legend(legend, loc='lower right', frameon=False)
+    plt.title(title)
+    plt.xlabel(x_label)
+    plt.ylabel(y_label)
+    
+    plt.show()
+
+# ------------------------------------------------------------------------------
+# pair plot(filename)
+#   ~~
+
+def ft_pair_plot(_file_name):
+    # dataset = ft_read_csv(_file_name)
+    # data    = dataset[1:, :]
+    # data    = data[data[:, 1].argsort()]
+    
+    # size    = data
+    print("hello world")

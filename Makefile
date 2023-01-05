@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/28 12:28:15 by kimkwanho         #+#    #+#              #
-#    Updated: 2023/01/05 12:27:29 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/05 13:29:20 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,14 @@ describe:
 histogram:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the histogram.py code\n"
 	@python3 "srcs/histogram.py" $(TRAIN)
+
+scatter_plot:
+	@printf "\033[1m\033[34m[Run]\033[0m\t Running the scatter_plot.py code\n"
+	@python3 "srcs/scatter_plot.py" $(TRAIN)
+
+pair_plot:
+	@printf "\033[1m\033[34m[Run]\033[0m\t Running the pair_plot.py code\n"
+	@python3 "srcs/pair_plot.py" $(TRAIN)
 
 predict:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the predict.py code\n"
