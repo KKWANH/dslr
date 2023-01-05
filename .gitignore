@@ -3,6 +3,7 @@
 ft_env
 parameter.dat
 *.dat
+houses.csv
 /srcs/houses.csv
 # Byte-compiled / optimized / DLL files
 __pycache__/

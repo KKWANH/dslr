@@ -43,8 +43,6 @@ class MiddleLayer(BaseLayer):
 
         self.grad_x = numpy.dot(delta, self.w.T)
 
-from BaseLayer import BaseLayer
-
 # ------------------------------------------------------------------------------
 # Layer: OutputLayer
 #   출력층

@@ -12,7 +12,7 @@
 
 # ------------------------------------------------------------------------------
 # import : dslr
-from DSLR.layer import MiddleLayer, OutputLayer
+from DSLR.layer import OutputLayer
 
 # ------------------------------------------------------------------------------
 # import : library
@@ -122,7 +122,7 @@ def preprocessing2(df, printMode = True):
     return df4
 
 
-def getInumpyutData(df4, printMode = True):
+def getInputData(df4, printMode = True):
     # 필드 정보를 뺀 데이터의 값들만 추출
     raw_data = df4.values
     #numpy.random.shuffle(raw_data)  # 인덱스 임의 섞기
@@ -134,14 +134,14 @@ def getInumpyutData(df4, printMode = True):
 
     # 데이터 X값 분리(data_0 ~ data_3)
     # -- 입력 데이터 표준화 --
-    inumpyut_data = raw_data[:, 0:4]
-    ave_inumpyut = numpy.average(inumpyut_data, axis=0)
-    std_inumpyut = numpy.std(inumpyut_data, axis=0)
-    inumpyut_data = (inumpyut_data - ave_inumpyut) / std_inumpyut
+    input_data = raw_data[:, 0:4]
+    ave_inumpyut = numpy.average(input_data, axis=0)
+    std_inumpyut = numpy.std(input_data, axis=0)
+    input_data = (input_data - ave_inumpyut) / std_inumpyut
     if printMode:
-        print(inumpyut_data[0])
+        print(input_data[0])
 
-    return raw_data, n_data, inumpyut_data
+    return raw_data, n_data, input_data
 
 def getCorrectData(raw_data, n_data, printMode = True):
     # 레이블 Y값 분리 ##Categories (4, object): ['Gryffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
@@ -159,26 +159,26 @@ def getCorrectData(raw_data, n_data, printMode = True):
 
     return correct, correct_data
 
-def splitInumpyutData(inumpyut_data, correct_data, n_data, printMode = True):
+def splitInumpyutData(input_data, correct_data, n_data, printMode = True):
     # -- 훈련 데이터와 테스트 데이터 --
     index = numpy.arange(n_data)
 
     index_train = index[index%2 != 0]
     index_test = index[index%2 == 0]
 
-    inumpyut_train = inumpyut_data[index_train, :]  # 훈련데이터 입력
+    input_train = input_data[index_train, :]  # 훈련데이터 입력
     correct_train = correct_data[index_train, :]  # 훈련데이터 정답
-    inumpyut_test = inumpyut_data[index_test, :]  # 테스트데이터 입력
+    input_test = input_data[index_test, :]  # 테스트데이터 입력
     correct_test = correct_data[index_test, :]  # 테스트데이터 정답
 
-    n_train = inumpyut_train.shape[0]  # 훈련데이터 샘플 수
-    n_test = inumpyut_test.shape[0]  # 테스트데이터 샘플 수
+    n_train = input_train.shape[0]  # 훈련데이터 샘플 수
+    n_test = input_test.shape[0]  # 테스트데이터 샘플 수
     if printMode:
-        print(n_train, n_test, inumpyut_data.shape)
+        print(n_train, n_test, input_data.shape)
 
-    return inumpyut_train, inumpyut_test, correct_train, correct_test, n_train, n_test
+    return input_train, input_test, correct_train, correct_test, n_train, n_test
 
-def logreg(n_train, n_test, eta, epoch, batch_size, interval, output_layer, inumpyut_train, correct_train, inumpyut_test, correct_test):
+def logreg(n_train, n_test, eta, epoch, batch_size, interval, output_layer, input_train, correct_train, input_test, correct_test):
   # -- 오차 기록용 --
   train_error_x = []
   train_error_y = []
@@ -192,9 +192,9 @@ def logreg(n_train, n_test, eta, epoch, batch_size, interval, output_layer, inum
   for i in range(epoch):
 
       # -- 오차 계측 --
-      output_layer.forward(inumpyut_train)
+      output_layer.forward(input_train)
       error_train = get_error(correct_train, n_train)
-      output_layer.forward(inumpyut_test)
+      output_layer.forward(input_test)
       error_test = get_error(correct_test, n_test)
 
       # -- 오차 기록 --
@@ -216,7 +216,7 @@ def logreg(n_train, n_test, eta, epoch, batch_size, interval, output_layer, inum
 
           # 미니배치 샘플 추출
           mb_index = index_random[j*batch_size : (j+1)*batch_size]
-          x = inumpyut_train[mb_index, :]
+          x = input_train[mb_index, :]
           t = correct_train[mb_index, :]
 
           # 순전파와 역전파
@@ -275,10 +275,10 @@ if __name__ == '__main__':
 
     df = addLabelColumn(df)
     df4 = preprocessing2(df)
-    raw_data, n_data, inumpyut_data = getInumpyutData(df4)
+    raw_data, n_data, input_data = getInputData(df4)
     correct, correct_data = getCorrectData(raw_data, n_data)
 
-    inumpyut_train, inumpyut_test, correct_train, correct_test, n_train, n_test = splitInumpyutData(inumpyut_data, correct_data, n_data)
+    input_train, input_test, correct_train, correct_test, n_train, n_test = splitInumpyutData(input_data, correct_data, n_data)
 
 
     # -- 각 설정 값 --
@@ -297,7 +297,7 @@ if __name__ == '__main__':
     #middle_layer_2 = MiddleLayer(wb_width, n_mid, n_mid)
     output_layer = OutputLayer(wb_width, n_in, n_out)
 
-    output_layer, train_error_x, train_error_y, test_error_x, test_error_y = logreg(n_train, n_test, eta, epoch, batch_size, interval, output_layer, inumpyut_train, correct_train, inumpyut_test, correct_test)
+    output_layer, train_error_x, train_error_y, test_error_x, test_error_y = logreg(n_train, n_test, eta, epoch, batch_size, interval, output_layer, input_train, correct_train, input_test, correct_test)
 
     # -- 기록된 오차를 그래프로 표시 --
     plt.plot(train_error_x, train_error_y, label="Train")
@@ -310,10 +310,10 @@ if __name__ == '__main__':
     plt.show()
 
     # -- 정답률 측정 --
-    output_layer.forward(inumpyut_train)
+    output_layer.forward(input_train)
     count_train = numpy.sum(numpy.argmax(output_layer.y, axis=1) == numpy.argmax(correct_train, axis=1))
 
-    output_layer.forward(inumpyut_test)
+    output_layer.forward(input_test)
     count_test = numpy.sum(numpy.argmax(output_layer.y, axis=1) == numpy.argmax(correct_test, axis=1))
 
     print("Accuracy Train:", str(count_train/n_train*100) + "%",
