@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 16:22:38 by kkim              #+#    #+#              #
-#    Updated: 2023/01/06 13:21:11 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 13:30:20 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ from DSLR.colors import colors as c
 # import : library
 import csv
 import numpy
-import matplotlib
 import matplotlib.pyplot as plt
 
 import pandas
@@ -27,9 +26,6 @@ import pandas
 # ------------------------------------------------------------------------------
 # util
 
-# ft_read_csv(filename)
-#   ~~~
-#   float만 입력받~~~
 def ft_read_csv(_file_name):
     dataset = list()
     with open(_file_name) as csv_file:
@@ -50,8 +46,7 @@ def ft_read_csv(_file_name):
     return numpy.array(dataset, dtype=object)
 
 # ------------------------------------------------------------------------------
-# describe(filename)
-#   ~~
+# describe
 
 def ft_check_house(_x, _house):
     if _x[1] == _house:
@@ -60,8 +55,7 @@ def ft_check_house(_x, _house):
 
 def ft_describe_print(index, dataset, title):
     title = c.UNDERLINE + title
-    print(f"")
-    print(f"{c.BLUE}┌─────────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┐{c.RESET}")
+    print(f"\n{c.BLUE}┌─────────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┐{c.RESET}")
     print(f'{c.BLUE}│{c.RESET}{c.BOLD}{title:>25}{c.RESET}',
           f'{c.RESET}{c.BLUE}│{c.RESET}{c.BOLD}{c.GREEN }{"Count":>12}',
           f'{c.RESET}{c.BLUE}│{c.RESET}{c.BOLD}{c.GREEN }{"Mean":>12}',
@@ -91,8 +85,7 @@ def ft_describe_print(index, dataset, title):
         except:
             print(f"{c.RESET}{ft_count(dataset[:, i]):>12}", end='  ')
             print(f'{"No numerical value to display":>60}                                     {c.BLUE}│')
-    print(f"{c.BLUE}└─────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────┘{c.RESET}")
-    print(f"")
+    print(f"{c.BLUE}└─────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────┘{c.RESET}\n")
 
 def ft_describe(_file_name):
     dataset = ft_read_csv(_file_name)
@@ -110,10 +103,9 @@ def ft_describe(_file_name):
     ft_describe_print(index, dataset_rav, c.CYAN   + "Ravenclaw")
     ft_describe_print(index, dataset_sly, c.GREEN  + "Slytherin")
 
-
 # ------------------------------------------------------------------------------
-# histogram(filename)
-#   ~~
+# histogram
+
 def ft_histogram(_file_name, _index):
     # data reading
     dataset = ft_read_csv(_file_name)
@@ -157,8 +149,8 @@ def ft_histogram(_file_name, _index):
     plt.show()
 
 # ------------------------------------------------------------------------------
-# scatter plot(filename, index_x, index_y)
-#   ~~
+# scatter plot
+
 def ft_scatter_plot(_file_name, _index_x, _index_y):
     # data reading
     dataset = ft_read_csv(_file_name)
@@ -192,10 +184,7 @@ def ft_scatter_plot(_file_name, _index_x, _index_y):
     plt.show()
 
 # ------------------------------------------------------------------------------
-# pair plot(filename)
-#   ~~
-
-
+# pair plot
 
 def ft_ax_histogram_plot(_ax, _dataset, _index):
 
@@ -254,9 +243,7 @@ def ft_ax_scatter_plot(_ax, _dataset, _index_x, _index_y):
     #_ax.set_xlabel(x_label)
     #_ax.set_ylabel(y_label)
 
-
-
-def ft_pair_plot(_file_name, indices):
+def ft_pair_plot(_file_name, _indices):
 
     dataset = ft_read_csv(_file_name)
     data    = dataset[1:, :]
@@ -266,19 +253,18 @@ def ft_pair_plot(_file_name, indices):
     legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
 
     # drawing
-    x, y = [len(indices), len(indices)]
-    _, axes = plt.subplots(x, y, figsize=(13/3*len(indices), 13/3*len(indices)))
+    x, y = [len(_indices), len(_indices)]
+    _, axes = plt.subplots(x, y, figsize=(13/3*len(_indices), 13/3*len(_indices)))
 
     for i in range(0,x):
-        idx_i = indices[i]
+        idx = _indices[i]
         for j in range(0,y):
-            idx_j = indices[j]
+            jdx = _indices[j]
             ax=axes[i, j]
             if i == j:
-              ft_ax_histogram_plot(ax, dataset, idx_i)
+                ft_ax_histogram_plot(ax, dataset, idx)
             else:
-              ft_ax_scatter_plot(ax, dataset, idx_i, idx_j)
-
+                ft_ax_scatter_plot(ax, dataset, idx, jdx)
 
     plt.legend(legend, loc='lower right', frameon=True)
     plt.show()
