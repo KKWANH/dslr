@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    train.py                                           :+:      :+:    :+:    #
+#    logreg_train.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 14:15:11 by kkim              #+#    #+#              #
-#    Updated: 2023/01/04 15:08:11 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 14:41:21 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -135,9 +135,9 @@ def getInputData(df4, printMode = True):
     # 데이터 X값 분리(data_0 ~ data_3)
     # -- 입력 데이터 표준화 --
     input_data = raw_data[:, 0:4]
-    ave_inumpyut = numpy.average(input_data, axis=0)
-    std_inumpyut = numpy.std(input_data, axis=0)
-    input_data = (input_data - ave_inumpyut) / std_inumpyut
+    ave_input = numpy.average(input_data, axis=0)
+    std_input = numpy.std(input_data, axis=0)
+    input_data = (input_data - ave_input) / std_input
     if printMode:
         print(input_data[0])
 
@@ -159,7 +159,7 @@ def getCorrectData(raw_data, n_data, printMode = True):
 
     return correct, correct_data
 
-def splitInumpyutData(input_data, correct_data, n_data, printMode = True):
+def splitInputData(input_data, correct_data, n_data, printMode = True):
     # -- 훈련 데이터와 테스트 데이터 --
     index = numpy.arange(n_data)
 
@@ -278,7 +278,7 @@ if __name__ == '__main__':
     raw_data, n_data, input_data = getInputData(df4)
     correct, correct_data = getCorrectData(raw_data, n_data)
 
-    input_train, input_test, correct_train, correct_test, n_train, n_test = splitInumpyutData(input_data, correct_data, n_data)
+    input_train, input_test, correct_train, correct_test, n_train, n_test = splitInputData(input_data, correct_data, n_data)
 
 
     # -- 각 설정 값 --

@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 16:22:38 by kkim              #+#    #+#              #
-#    Updated: 2023/01/06 13:30:20 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 14:19:12 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -194,7 +194,6 @@ def ft_ax_histogram_plot(_ax, _dataset, _index):
 
     # parameter setting
     x       = numpy.array(data[:, _index], dtype=float)
-    #legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
     x_label = _dataset[0, _index]
     y_label = "Number of student"
     #title   = dataset[0, _index]

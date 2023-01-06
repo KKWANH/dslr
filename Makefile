@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/28 12:28:15 by kimkwanho         #+#    #+#              #
-#    Updated: 2023/01/06 13:21:25 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 15:03:50 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ clean:
 	@rm -rf __pycache__
 	@rm -rf ft_env
 	@rm -rf parameter.dat
+	@rm -rf houses.csv
+	@rm -rf wb.dat
 
 setup:
 	@printf "\033[1m\033[32m[Setup]\033[0m\t Setting virtual-environment\n"
@@ -59,11 +61,11 @@ pair_plot:
 	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_train.csv'].\n"
 	@python3 "srcs/pair_plot.py" $(FILE)
 
-FILE = "data/dataset_test.csv"
+PREDICT = "data/dataset_test.csv"
 predict:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the predict.py code\n"
-	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_test.csv'].\n"
-	@python3 "srcs/logreg_predict.py" $(FILE)
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [PREDICT='data/dataset_test.csv'].\n"
+	@python3 "srcs/logreg_predict.py" $(PREDICT)
 
 FILE = "data/dataset_train.csv"
 train:

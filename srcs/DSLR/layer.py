@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/04 14:19:03 by kkim              #+#    #+#              #
-#    Updated: 2023/01/04 14:23:02 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 14:21:38 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ class BaseLayer:
 
 # ------------------------------------------------------------------------------
 # Layer: MiddleLayer
-#   Hidden Layer
+#   !Not using!
 class MiddleLayer(BaseLayer):
     def forward(self, x):
         self.x = x
