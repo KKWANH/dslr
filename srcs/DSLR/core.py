@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 16:22:38 by kkim              #+#    #+#              #
-#    Updated: 2023/01/05 13:54:29 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 12:50:57 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,11 @@ def ft_check_house(_x, _house):
         return True
     return False
 
-def ft_describe_print(index, dataset):
+def ft_describe_print(index, dataset, title):
+    title = c.UNDERLINE + title
+    print(f"")
     print(f"{c.BLUE}┌─────────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────┐{c.RESET}")
-    print(f'{c.BLUE}│ {"":15}',
+    print(f'{c.BLUE}│{c.RESET}{c.BOLD}{title:>25}{c.RESET}',
           f'{c.RESET}{c.BLUE}│{c.RESET}{c.BOLD}{c.GREEN }{"Count":>12}',
           f'{c.RESET}{c.BLUE}│{c.RESET}{c.BOLD}{c.GREEN }{"Mean":>12}',
           f'{c.RESET}{c.BLUE}│{c.RESET}{c.BOLD}{c.GREEN }{"Std":>12}',
@@ -90,7 +92,7 @@ def ft_describe_print(index, dataset):
             print(f"{c.RESET}{ft_count(dataset[:, i]):>12}", end='  ')
             print(f'{"No numerical value to display":>60}                                     {c.BLUE}│')
     print(f"{c.BLUE}└─────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────┘{c.RESET}")
-    print(f"\n\n\n")
+    print(f"")
 
 def ft_describe(_file_name):
     dataset = ft_read_csv(_file_name)
@@ -102,16 +104,11 @@ def ft_describe(_file_name):
     dataset_rav = numpy.array([x for x in dataset if ft_check_house(x, 'Ravenclaw')])
     dataset_sly = numpy.array([x for x in dataset if ft_check_house(x, 'Slytherin')])
 
-    print("Total")
-    ft_describe_print(index, dataset)
-    print("Gryffindor")
-    ft_describe_print(index, dataset_gry)
-    print("Hufflepuff")
-    ft_describe_print(index, dataset_huf)
-    print("Ravenclaw")
-    ft_describe_print(index, dataset_rav)
-    print("Slytherin")
-    ft_describe_print(index, dataset_sly)
+    ft_describe_print(index, dataset,     c.PURPLE + "Total")
+    ft_describe_print(index, dataset_gry, c.RED    + "Gryffindor")
+    ft_describe_print(index, dataset_huf, c.YELLOW + "Hufflepuff")
+    ft_describe_print(index, dataset_rav, c.CYAN   + "Ravenclaw")
+    ft_describe_print(index, dataset_sly, c.GREEN  + "Slytherin")
 
 
 # ------------------------------------------------------------------------------
