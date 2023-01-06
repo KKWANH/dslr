@@ -6,7 +6,7 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 16:22:38 by kkim              #+#    #+#              #
-#    Updated: 2023/01/06 12:50:57 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 13:21:11 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,12 +119,16 @@ def ft_histogram(_file_name, _index):
     dataset = ft_read_csv(_file_name)
     data    = dataset[1:, :]
     data    = data[data[:, 1].argsort()]
-    print(data)
+
+    if _index.isnumeric() == True:
+        index = int(_index)
+    else:
+        index = numpy.where(dataset[0] == _index)[0][0]
 
     # parameter setting
-    x       = numpy.array(data[:, _index], dtype=float)
+    x       = numpy.array(data[:, index], dtype=float)
     legend  = ['Grynffindor', 'Hufflepuff', 'Ravenclaw', 'Slytherin']
-    title   = dataset[0, _index]
+    title   = dataset[0, index]
     x_label = "Marks"
     y_label = "Number of student"
     alpha   = 0.3
