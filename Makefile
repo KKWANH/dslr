@@ -6,13 +6,9 @@
 #    By: kkim <kkim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/28 12:28:15 by kimkwanho         #+#    #+#              #
-#    Updated: 2023/01/05 13:29:20 by kkim             ###   ########.fr        #
+#    Updated: 2023/01/06 13:21:25 by kkim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-
-TRAIN	= "data/dataset_train.csv"
-TEST	= "data/dataset_test.csv"
 
 all:
 	@make help
@@ -36,33 +32,50 @@ env:
 	@printf "\033[0m\n"
 	@printf "\033[1m\033[32m     \033[0m\t If it doesn't works well, please run [\033[1m\033[4m\033[33msource ft_env/bin/activate\033[0m].\n"
 
+FILE = "data/dataset_train.csv"
 describe:
-	@printf "\033[1m\033[34m[Run]\033[0m\t Running the describe.py code\n"
-	@python3 "srcs/describe.py" $(TRAIN)
+	@printf "\033[1m\033[34m[Run]\033[0m\t Running the describe.py code.\n"
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_train.csv'].\n"
+	@python3 "srcs/describe.py" $(FILE)
 
+FILE = "data/dataset_train.csv"
+INDEX = "Arithmancy"
 histogram:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the histogram.py code\n"
-	@python3 "srcs/histogram.py" $(TRAIN)
+	@printf "\033[1m\033[34m     \033[0m\t We recommend you to run the index: \033[31m6\033[0m(Arithmancy), \033[31m15\033[0m(Potions), \033[31m16\033[0m(Care of magical creatures).\n"
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [\033[1m\033[4m\033[32m.csv\033[0m] file like [\033[1m\033[4m\033[33mFILE='data/dataset_train.csv'\033[0m].\n"
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [\033[1m\033[4m\033[32mindex\033[0m] number like [\033[1m\033[4m\033[33mINDEX='6' or INDEX='Arithmancy'\033[0m].\n"
+	@python3 "srcs/histogram.py" $(FILE) $(INDEX)
 
+FILE = "data/dataset_train.csv"
 scatter_plot:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the scatter_plot.py code\n"
-	@python3 "srcs/scatter_plot.py" $(TRAIN)
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_train.csv'].\n"
+	@python3 "srcs/scatter_plot.py" $(FILE)
 
+FILE = "data/dataset_train.csv"
 pair_plot:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the pair_plot.py code\n"
-	@python3 "srcs/pair_plot.py" $(TRAIN)
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_train.csv'].\n"
+	@python3 "srcs/pair_plot.py" $(FILE)
 
+FILE = "data/dataset_test.csv"
 predict:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the predict.py code\n"
-	@python3 "srcs/logreg_predict.py" $(TEST)
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_test.csv'].\n"
+	@python3 "srcs/logreg_predict.py" $(FILE)
 
+FILE = "data/dataset_train.csv"
 train:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the train.py code\n"
-	@python3 "srcs/logreg_train.py" $(TRAIN)
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_train.csv'].\n"
+	@python3 "srcs/logreg_train.py" $(FILE)
 
+FILE = "data/dataset_train.csv"
 evaluate:
 	@printf "\033[1m\033[34m[Run]\033[0m\t Running the evaluate.py code\n"
-	@python3 "srcs/logreg_evaluate.py" $(TRAIN)
+	@printf "\033[1m\033[34m     \033[0m\t You can change input [.csv] file with [FILE='data/dataset_train.csv'].\n"
+	@python3 "srcs/logreg_evaluate.py" $(FILE)
 
 help:
 	@printf "\033[1m\033[33m[Help]\033[0m\t \033[4m\033[1mthere are 5 options.\033[0m\n"
